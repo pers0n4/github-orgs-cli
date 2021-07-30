@@ -1,0 +1,19 @@
+{
+  "name": "github-organization-invitations",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Dong-Young Kim <31337.persona@gmail.com>",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "parcel build src/index.ts --target node"
+  },
+  "dependencies": {
+    "@octokit/core": "^3.5.1",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.7",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.3.5"
+  }
+}
