@@ -8,8 +8,7 @@
     "start": "node dist/main.js"
   },
   "dependencies": {
-    "octokit": "^1.7.1",
-    "dotenv": "^10.0.0"
+    "octokit": "^1.7.1"
   },
   "devDependencies": {
     "@octokit/types": "^6.34.0",
