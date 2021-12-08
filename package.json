@@ -8,10 +8,11 @@
     "start": "node dist/main.js"
   },
   "dependencies": {
-    "@octokit/core": "^3.5.1",
+    "octokit": "^1.7.1",
     "dotenv": "^10.0.0"
   },
   "devDependencies": {
+    "@octokit/types": "^6.34.0",
     "@types/node": "^16.11.9",
     "@types/webpack": "^5.28.0",
     "ts-loader": "^9.2.6",
