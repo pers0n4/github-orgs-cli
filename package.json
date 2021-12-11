@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --build",
     "check": "tsc --noEmit",
-    "start": "node build/index.js",
+    "start": "node dist/index.js",
     "watch": "tsc --watch"
   },
   "dependencies": {
