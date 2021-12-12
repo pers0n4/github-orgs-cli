@@ -1,19 +1,28 @@
-# GitHub Organization Invitation
+# GitHub Organization CLI
 
 ## Installation
 
+### npm
+
+```shell
+pnpm add --global github-orgs-cli
+```
+
+### Locally install by Git
+
 ```bash
-git clone https://github.com/pers0n4/github-organization-invitation.git
+git clone https://github.com/pers0n4/github-orgs-cli.git
+cd github-orgs-cli
 
-cd github-organization-invitation
-
-yarn && yarn build
-# or
-npm install && npm run build
+pnpm link --global
 ```
 
 ## Usage
 
-1. `.env`에 `admin:org` 권한을 포함한 GITHUB_TOKEN 설정
-2. `input.txt`에 그룹에 추가할 `username` 또는 `email` 목록 입력 (줄 바꿈으로 구분)
-3. `ORG=organization node dist/main.js`
+```shell
+github-orgs-cli <filename>
+```
+
+## LICENSE
+
+[MIT License](./LICENSE)

@@ -1,87 +1,39 @@
-import { Octokit } from "@octokit/core";
-import { readFile } from "fs/promises";
-require("dotenv").config();
+#!/usr/bin/env node
+import { program } from "commander";
+import {
+  inviteUsersToOrganization,
+  organizationQuery,
+  tokenQuery,
+} from "./cli.js";
+import { GitHub } from "./github.js";
+import { openFileReadStream, readPackageJson } from "./utils.js";
 
-class GitHubClient {
-  private readonly octokit: Octokit;
+function main() {
+  const { version, name } = readPackageJson();
 
-  constructor(token: string) {
-    this.octokit = new Octokit({
-      auth: token,
-    });
-  }
+  program.name(name).version(version);
 
-  public async getUserId(username: string): Promise<number> {
-    const user = await this.octokit.request("GET /users/{username}", {
-      username,
-    });
-    return user.data.id as number;
-  }
+  program.argument("<filename>").action(async (filename: string) => {
+    try {
+      const fileReadStream = await openFileReadStream(filename);
 
-  public async inviteOrganizationMemberByEmail(
-    org: string,
-    email: string,
-  ): Promise<void> {
-    await this.octokit.request("POST /orgs/{org}/invitations", {
-      org,
-      email,
-    });
-  }
+      const token = await tokenQuery();
+      const github = new GitHub(token);
 
-  public async inviteOrganizationMemberById(
-    org: string,
-    invitee_id: number,
-  ): Promise<void> {
-    await this.octokit.request("POST /orgs/{org}/invitations", {
-      org,
-      invitee_id,
-    });
-  }
+      const selectedOrganization = await organizationQuery(github);
+      await inviteUsersToOrganization(
+        github,
+        selectedOrganization,
+        fileReadStream,
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(`${error.name}: ${error.message}`);
+      }
+    }
+  });
+
+  program.showSuggestionAfterError().showHelpAfterError().parse(process.argv);
 }
 
-const validateEmail = (email: string) => /^[\w-\.]+@[\w-\.]+$/i.test(email);
-
-const devideCollectionByFilter = <T>(
-  collection: T[],
-  filter: (value: T) => boolean,
-) =>
-  collection.reduce<[T[], T[]]>(
-    (accumulator, current) => {
-      filter(current)
-        ? accumulator[0].push(current)
-        : accumulator[1].push(current);
-      return accumulator;
-    },
-    [[], []],
-  );
-
-(async () => {
-  try {
-    const github = new GitHubClient(process.env["GITHUB_TOKEN"] as string);
-    const users = (await readFile("./input.txt", "utf8")).trim().split("\n");
-    const [userEmailList, usernameList] = devideCollectionByFilter(
-      users,
-      validateEmail,
-    );
-    const userIdList = await Promise.all(
-      usernameList.map((username) => github.getUserId(username)),
-    );
-
-    for await (const userEmail of userEmailList) {
-      await github.inviteOrganizationMemberByEmail(
-        process.env["ORG"] as string,
-        userEmail,
-      );
-    }
-
-    for await (const userId of userIdList) {
-      await github.inviteOrganizationMemberById(
-        process.env["ORG"] as string,
-        userId,
-      );
-    }
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-})();
+main();
