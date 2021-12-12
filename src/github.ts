@@ -46,7 +46,7 @@ export class GitHub {
       throw new Error(`Failed to get user id for ${username}`);
     }
 
-    return user.id;
+    return user.id as number;
   }
 
   public async inviteToOrganizationMember({
