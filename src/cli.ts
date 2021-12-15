@@ -35,10 +35,42 @@ export const organizationQuery = async (github: GitHub): Promise<string> => {
   return organization;
 };
 
+export const teamQuery = async (github: GitHub, org: string) => {
+  const { teamIds } = await inquirer.prompt<{
+    inviteWithTeams: boolean;
+    teamIds?: number[];
+  }>([
+    {
+      type: "confirm",
+      name: "inviteWithTeams",
+      message: "Do you want to invite to a team?",
+      default: false,
+    },
+    {
+      type: "checkbox",
+      name: "teamIds",
+      message: "Select teams:",
+      choices: async () => {
+        const teams = (await github.listTeamsOfOrganization(org)).map(
+          (team) => ({ name: team.name, value: team.id }),
+        );
+        if (!teams.length) {
+          return [new inquirer.Separator("No teams found")];
+        }
+        return teams;
+      },
+      when: (answers) => answers.inviteWithTeams,
+    },
+  ]);
+
+  return teamIds;
+};
+
 export const inviteUsersToOrganization = async (
   github: GitHub,
   org: string,
   readStream: NodeJS.ReadableStream,
+  team_ids?: number[],
 ) => {
   const spinner = ora("Loading...").start();
   try {
@@ -50,11 +82,13 @@ export const inviteUsersToOrganization = async (
         await github.inviteToOrganizationMember({
           org,
           email: line,
+          team_ids,
         });
       } else {
         await github.inviteToOrganizationMember({
           org,
           invitee_id: await github.getUserIdByUsername(line),
+          team_ids,
         });
       }
     }

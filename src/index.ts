@@ -4,6 +4,7 @@ import { program } from "commander";
 import {
   inviteUsersToOrganization,
   organizationQuery,
+  teamQuery,
   tokenQuery,
 } from "./cli.js";
 import { GitHub } from "./github.js";
@@ -22,10 +23,13 @@ function main() {
       const github = new GitHub(token);
 
       const selectedOrganization = await organizationQuery(github);
+      const teamIds = await teamQuery(github, selectedOrganization);
+
       await inviteUsersToOrganization(
         github,
         selectedOrganization,
         fileReadStream,
+        teamIds,
       );
     } catch (error) {
       if (error instanceof Error) {
