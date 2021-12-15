@@ -1,11 +1,13 @@
 import chalk from "chalk";
-import inquirer from "inquirer";
+import * as inquirer from "inquirer";
 import ora from "ora";
-import type { GitHub } from "./github.js";
+
 import { createLineStream, validateEmail } from "./utils.js";
 
-export const tokenQuery = async () => {
-  const { token } = await inquirer.prompt({
+import type { GitHub } from "./github.js";
+
+export const tokenQuery = async (): Promise<string> => {
+  const { token } = await inquirer.prompt<{ token: string }>({
     type: "password",
     name: "token",
     message: "GitHub Token:",
@@ -17,11 +19,11 @@ export const tokenQuery = async () => {
   return token;
 };
 
-export const organizationQuery = async (github: GitHub) => {
+export const organizationQuery = async (github: GitHub): Promise<string> => {
   const userOrganizations =
     await github.listOrganizationsForAuthenticatedUser();
 
-  const { organization } = await inquirer.prompt([
+  const { organization } = await inquirer.prompt<{ organization: string }>([
     {
       type: "list",
       name: "organization",
