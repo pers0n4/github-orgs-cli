@@ -31,13 +31,6 @@ export class GitHub {
     return user;
   }
 
-  public async listOrganizationsForAuthenticatedUser() {
-    const { data: orgs } =
-      await this.octokit.rest.orgs.listForAuthenticatedUser();
-
-    return orgs;
-  }
-
   public async getUserIdByUsername(username: string) {
     const { data: user, status } = await this.octokit.rest.users.getByUsername({
       username,
@@ -48,6 +41,13 @@ export class GitHub {
     }
 
     return user.id as number;
+  }
+
+  public async listOrganizationsForAuthenticatedUser() {
+    const { data: orgs } =
+      await this.octokit.rest.orgs.listForAuthenticatedUser();
+
+    return orgs;
   }
 
   public async inviteToOrganizationMember({
