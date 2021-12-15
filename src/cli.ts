@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import * as inquirer from "inquirer";
+import inquirer from "inquirer";
 import ora from "ora";
 
 import { createLineStream, validateEmail } from "./utils.js";
