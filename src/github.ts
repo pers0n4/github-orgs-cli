@@ -50,6 +50,14 @@ export class GitHub {
     return orgs;
   }
 
+  public async listTeamsOfOrganization(org: string) {
+    const { data: teams } = await this.octokit.rest.teams.list({
+      org,
+    });
+
+    return teams;
+  }
+
   public async inviteToOrganizationMember({
     org,
     invitee_id,
