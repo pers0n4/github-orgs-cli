@@ -72,6 +72,18 @@ export class GitHub {
     });
   }
 
+  public async inviteUserToRepositoryCollaborator(
+    owner: string,
+    repo: string,
+    username: string,
+  ) {
+    await this.octokit.rest.repos.addCollaborator({
+      owner,
+      repo,
+      username,
+    });
+  }
+
   public async getRateLimit() {
     const { data: limits } = await this.octokit.rest.rateLimit.get();
 
