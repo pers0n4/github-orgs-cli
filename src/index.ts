@@ -16,29 +16,27 @@ function main() {
   program.name(name).version(version);
 
   program.argument("<filename>").action(async (filename: string) => {
-    try {
-      const fileReadStream = await openFileReadStream(filename);
+    const fileReadStream = await openFileReadStream(filename);
 
-      const token = await tokenQuery();
-      const github = new GitHub(token);
+    const token = await tokenQuery();
+    const github = new GitHub(token);
 
-      const selectedOrganization = await organizationQuery(github);
-      const teamIds = await teamQuery(github, selectedOrganization);
+    const selectedOrganization = await organizationQuery(github);
+    const teamIds = await teamQuery(github, selectedOrganization);
 
-      await inviteUsersToOrganization(
-        github,
-        selectedOrganization,
-        fileReadStream,
-        teamIds,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(`${error.name}: ${error.message}`);
-      }
-    }
+    await inviteUsersToOrganization(
+      github,
+      selectedOrganization,
+      fileReadStream,
+      teamIds,
+    );
   });
 
   program.showSuggestionAfterError().showHelpAfterError().parse(process.argv);
 }
 
-main();
+try {
+  main();
+} catch (error) {
+  console.error(error);
+}
