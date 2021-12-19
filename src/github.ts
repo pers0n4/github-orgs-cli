@@ -16,6 +16,14 @@ export type RequireExactlyOne<T, Keys extends keyof T = keyof T> = {
 type CreateInvitationParameters =
   Endpoints["POST /orgs/{org}/invitations"]["parameters"];
 
+class GitHubError extends Error {
+  constructor(error: Error) {
+    super(error.message);
+
+    Error.captureStackTrace?.(this, GitHubError);
+  }
+}
+
 export class GitHub {
   private readonly octokit: Octokit;
 
