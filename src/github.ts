@@ -24,6 +24,59 @@ class GitHubError extends Error {
   }
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type Method<T> = T extends (...args: any[]) => Promise<any>
+  ? (...args: any[]) => Promise<any>
+  : (...args: any[]) => any;
+type Constructor = { new (...args: any[]): any };
+/* eslint-enable */
+
+function ErrorMethod<T>(
+  target: T,
+  propertyKey: string | symbol,
+  descriptor: TypedPropertyDescriptor<Method<T>>,
+) {
+  if (!descriptor) {
+    descriptor = Object.getOwnPropertyDescriptor(
+      target,
+      propertyKey,
+    ) as TypedPropertyDescriptor<Method<T>>;
+  }
+  const { value: method } = descriptor;
+
+  descriptor.value = async function (...args: any[]) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return await method?.apply(this, args);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new GitHubError(error);
+      }
+    }
+  };
+
+  return descriptor;
+}
+
+function ErrorClass<T extends Constructor>(constructor: T) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+
+  for (const key of Object.getOwnPropertyNames(constructor.prototype)) {
+    const descriptor = Object.getOwnPropertyDescriptor(
+      constructor.prototype,
+      key,
+    ) as TypedPropertyDescriptor<Method<T>>;
+    const decoratedMethod = ErrorMethod<T>(
+      constructor.prototype as T,
+      key,
+      descriptor,
+    );
+    Object.defineProperty(constructor.prototype, key, decoratedMethod);
+  }
+}
+
+@ErrorClass
 export class GitHub {
   private readonly octokit: Octokit;
 
