@@ -79,13 +79,13 @@ export const inviteUsersToOrganization = async (
       spinner.text = `Invite ${chalk.cyan(line)}...`;
 
       if (validateEmail(line)) {
-        await github.inviteToOrganizationMember({
+        await github.inviteUserToOrganizationMember({
           org,
           email: line,
           team_ids,
         });
       } else {
-        await github.inviteToOrganizationMember({
+        await github.inviteUserToOrganizationMember({
           org,
           invitee_id: await github.getUserIdByUsername(line),
           team_ids,

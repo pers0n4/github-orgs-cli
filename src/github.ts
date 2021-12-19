@@ -58,7 +58,7 @@ export class GitHub {
     return teams;
   }
 
-  public async inviteToOrganizationMember({
+  public async inviteUserToOrganizationMember({
     org,
     invitee_id,
     email,
