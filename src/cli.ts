@@ -68,8 +68,8 @@ export const teamQuery = async (github: GitHub, org: string) => {
 
 export const inviteUsersToOrganization = async (
   github: GitHub,
-  org: string,
   readStream: NodeJS.ReadableStream,
+  org: string,
   team_ids?: number[],
 ) => {
   const spinner = ora("Loading...").start();
@@ -92,7 +92,6 @@ export const inviteUsersToOrganization = async (
         });
       }
     }
-
     spinner.succeed("Done");
   } catch (error) {
     if (error instanceof Error) {

@@ -26,8 +26,8 @@ function main() {
 
     await inviteUsersToOrganization(
       github,
-      selectedOrganization,
       fileReadStream,
+      selectedOrganization,
       teamIds,
     );
   });
