@@ -100,3 +100,30 @@ export const inviteUsersToOrganization = async (
     }
   }
 };
+
+export const inviteUsersToRepository = async (
+  github: GitHub,
+  readStream: NodeJS.ReadableStream,
+  owner: string,
+  repo: string,
+) => {
+  const spinner = ora("Loading...").start();
+  try {
+    const lineInterface = createLineStream(readStream);
+    for await (const line of lineInterface) {
+      if (validateEmail(line)) {
+        throw new Error(
+          `Repository invitation is not supported for email: ${line}`,
+        );
+      }
+      spinner.text = `Invite ${chalk.cyan(line)}...`;
+
+      await github.inviteUserToRepositoryCollaborator(owner, repo, line);
+    }
+    spinner.succeed("Done");
+  } catch (error) {
+    if (error instanceof Error) {
+      spinner.fail(`${error.name}: ${error.message}`);
+    }
+  }
+};
