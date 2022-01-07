@@ -11,7 +11,6 @@ export const tokenQuery = async (): Promise<string> => {
     type: "password",
     name: "token",
     message: "GitHub Token:",
-    default: process.env["GITHUB_TOKEN"],
     mask: "*",
     validate: (input: string) => !!input.trim() || "Please enter a valid token",
   });

@@ -18,7 +18,7 @@ function main() {
   program.argument("<filename>").action(async (filename: string) => {
     const fileReadStream = await openFileReadStream(filename);
 
-    const token = await tokenQuery();
+    const token = process.env["GITHUB_TOKEN"] ?? (await tokenQuery());
     const github = new GitHub(token);
 
     const selectedOrganization = await organizationQuery(github);
