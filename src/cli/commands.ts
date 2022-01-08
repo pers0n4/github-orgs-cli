@@ -15,10 +15,10 @@ export const organizationInvitationCommand = () =>
   new Command("org")
     .description("Invite users to an organization")
     .argument("[organization]", "github organization path")
-    .argument("[filename]", "file containing invitees")
-    .action(async (organization: string, filename: string) => {
+    .option("-f, --file <filename>", "file containing invitees")
+    .action(async (organization: string, { file }: { file: string }) => {
       const fileReadStream = await openFileReadStream(
-        filename ?? (await filenameQuestion()),
+        file ?? (await filenameQuestion()),
       );
 
       const token = process.env["GITHUB_TOKEN"] ?? (await tokenQuestion());
