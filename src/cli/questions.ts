@@ -62,3 +62,18 @@ export const teamQuestion = async (github: Octokit, org: string) => {
 
   return teamIds;
 };
+
+export const filenameQuestion = async () => {
+  const { filename } = await inquirer.prompt<{ filename: string }>([
+    {
+      type: "fuzzyPath",
+      name: "filename",
+      message: "Select a file containing invitees",
+      itemType: "file",
+      excludePath: (nodePath: string) =>
+        ["node_modules", ".git"].some((word) => nodePath.startsWith(word)),
+    },
+  ]);
+
+  return filename;
+};

@@ -4,6 +4,7 @@ import { Octokit } from "octokit";
 import { openFileReadStream } from "../utils.js";
 
 import {
+  filenameQuestion,
   organizationQuestion,
   teamQuestion,
   tokenQuestion,
@@ -16,7 +17,9 @@ export const organizationInvitationCommand = () =>
     .argument("[organization]", "github organization path")
     .argument("[filename]", "file containing invitees")
     .action(async (organization: string, filename: string) => {
-      const fileReadStream = await openFileReadStream(filename);
+      const fileReadStream = await openFileReadStream(
+        filename ?? (await filenameQuestion()),
+      );
 
       const token = process.env["GITHUB_TOKEN"] ?? (await tokenQuestion());
       const github = new Octokit({ auth: token });
