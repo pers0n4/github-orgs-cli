@@ -30,6 +30,7 @@
     "commander": "^8.3.0",
     "inquirer": "^8.2.0",
     "inquirer-fuzzy-path": "^2.3.0",
+    "inquirer-search-checkbox": "^1.0.0",
     "octokit": "^1.7.1",
     "ora": "^6.0.1",
     "read-pkg-up": "^9.0.0"
