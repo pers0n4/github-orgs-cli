@@ -2,9 +2,9 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import ora from "ora";
 
-import { createLineStream, validateEmail } from "./utils.js";
+import { createLineStream, validateEmail } from "../utils.js";
 
-import type { GitHub } from "./github.js";
+import type { GitHub } from "../github";
 
 export const tokenQuery = async (): Promise<string> => {
   const { token } = await inquirer.prompt<{ token: string }>({

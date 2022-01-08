@@ -1,42 +1,14 @@
 #!/usr/bin/env node
-import { program } from "commander";
+import cli from "./cli/index.js";
+import { readPackageJson } from "./utils.js";
 
-import {
-  inviteUsersToOrganization,
-  organizationQuery,
-  teamQuery,
-  tokenQuery,
-} from "./cli.js";
-import { GitHub } from "./github.js";
-import { openFileReadStream, readPackageJson } from "./utils.js";
-
-function main() {
+(function () {
   const { version, name } = readPackageJson();
-
-  program.name(name).version(version);
-
-  program.argument("<filename>").action(async (filename: string) => {
-    const fileReadStream = await openFileReadStream(filename);
-
-    const token = process.env["GITHUB_TOKEN"] ?? (await tokenQuery());
-    const github = new GitHub(token);
-
-    const selectedOrganization = await organizationQuery(github);
-    const teamIds = await teamQuery(github, selectedOrganization);
-
-    await inviteUsersToOrganization(
-      github,
-      fileReadStream,
-      selectedOrganization,
-      teamIds,
-    );
-  });
-
-  program.showSuggestionAfterError().showHelpAfterError().parse(process.argv);
-}
-
-try {
-  main();
-} catch (error) {
-  console.error(error);
-}
+  cli
+    .name(name)
+    .version(version)
+    .description("Invite users to an organization")
+    .showHelpAfterError()
+    .showSuggestionAfterError()
+    .parse(process.argv);
+})();
