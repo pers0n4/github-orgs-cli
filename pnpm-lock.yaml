@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@octokit/types': ^6.34.0
   '@types/inquirer': ^8.1.3
   '@types/node': ^16.11.12
   '@typescript-eslint/eslint-plugin': ^5.9.0
@@ -33,7 +32,6 @@ dependencies:
   read-pkg-up: 9.0.0
 
 devDependencies:
-  '@octokit/types': 6.34.0
   '@types/inquirer': 8.1.3
   '@types/node': 16.11.12
   '@typescript-eslint/eslint-plugin': 5.9.0_bd2fd93dbcc607ad2f21b784bccfe0c8
@@ -252,6 +250,7 @@ packages:
 
   /@octokit/openapi-types/11.2.0:
     resolution: {integrity: sha512-PBsVO+15KSlGmiI8QAzaqvsNlZlrDlyAJYcrXBCvVUxCp7VnXjkwPoFHgjEJXx3WF9BAwkA6nfCUA7i9sODzKA==}
+    dev: false
 
   /@octokit/plugin-paginate-rest/2.17.0_@octokit+core@3.5.1:
     resolution: {integrity: sha512-tzMbrbnam2Mt4AhuyCHvpRkS0oZ5MvwwcQPYGtMv4tUa5kkzG58SVB0fcsLulOZQeRnOgdkZWkRUiyBlh0Bkyw==}
@@ -312,6 +311,7 @@ packages:
     resolution: {integrity: sha512-s1zLBjWhdEI2zwaoSgyOFoKSl109CUcVBCc7biPJ3aAf6LGLU6szDvi31JPU7bxfla2lqfhjbbg/5DdFNxOwHw==}
     dependencies:
       '@octokit/openapi-types': 11.2.0
+    dev: false
 
   /@octokit/webhooks-methods/2.0.0:
     resolution: {integrity: sha512-35cfQ4YWlnZnmZKmIxlGPUPLtbkF8lr/A/1Sk1eC0ddLMwQN06dOuLc+dI3YLQS+T+MoNt3DIQ0NynwgKPilig==}
