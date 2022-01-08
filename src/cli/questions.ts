@@ -1,9 +1,11 @@
 import inquirer from "inquirer";
 import fuzzyPath from "inquirer-fuzzy-path";
+import searchCheckbox from "inquirer-search-checkbox";
 
 import type { Octokit } from "octokit";
 
 inquirer.registerPrompt("fuzzyPath", fuzzyPath);
+inquirer.registerPrompt("searchCheckbox", searchCheckbox);
 
 export const tokenQuestion = async (): Promise<string> => {
   const { token } = await inquirer.prompt<{ token: string }>({
@@ -44,16 +46,13 @@ export const teamQuestion = async (github: Octokit, org: string) => {
       default: false,
     },
     {
-      type: "checkbox",
+      type: "searchCheckbox",
       name: "teamIds",
       message: "Select teams",
       choices: async () => {
         const { data: teams } = await github.rest.teams.list({
           org,
         });
-        if (!teams.length) {
-          return [new inquirer.Separator("No teams found")];
-        }
         return teams.map((team) => ({ name: team.name, value: team.id }));
       },
       when: ({ shouldInviteWithTeams }) => shouldInviteWithTeams,
