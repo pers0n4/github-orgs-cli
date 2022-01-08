@@ -1,6 +1,9 @@
 import inquirer from "inquirer";
+import fuzzyPath from "inquirer-fuzzy-path";
 
 import type { Octokit } from "octokit";
+
+inquirer.registerPrompt("fuzzyPath", fuzzyPath);
 
 export const tokenQuestion = async (): Promise<string> => {
   const { token } = await inquirer.prompt<{ token: string }>({
