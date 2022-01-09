@@ -7,7 +7,7 @@ import { readPackageJson } from "./utils.js";
   cli
     .name(name)
     .version(version)
-    .description("Invite users to an organization")
+    .description("A command line tool for inviting users to an organization")
     .showHelpAfterError()
     .showSuggestionAfterError()
     .parse(process.argv);
