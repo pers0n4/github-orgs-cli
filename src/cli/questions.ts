@@ -1,11 +1,13 @@
 import inquirer from "inquirer";
 import fuzzyPath from "inquirer-fuzzy-path";
 import searchCheckbox from "inquirer-search-checkbox";
+import searchList from "inquirer-search-list";
 
 import type { Octokit } from "octokit";
 
 inquirer.registerPrompt("fuzzyPath", fuzzyPath);
 inquirer.registerPrompt("searchCheckbox", searchCheckbox);
+inquirer.registerPrompt("searchList", searchList);
 
 export const tokenQuestion = async (): Promise<string> => {
   const { token } = await inquirer.prompt<{ token: string }>({
