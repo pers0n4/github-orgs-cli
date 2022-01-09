@@ -3,6 +3,8 @@ import fuzzyPath from "inquirer-fuzzy-path";
 import searchCheckbox from "inquirer-search-checkbox";
 import searchList from "inquirer-search-list";
 
+import { loadRepositories } from "./tasks.js";
+
 import type { Octokit } from "octokit";
 
 inquirer.registerPrompt("fuzzyPath", fuzzyPath);
@@ -62,6 +64,20 @@ export const teamQuestion = async (github: Octokit, org: string) => {
   ]);
 
   return teamIds;
+};
+
+export const repositoryQuestion = async (github: Octokit) => {
+  const repositories = await loadRepositories(github);
+  const { path } = await inquirer.prompt<{ path: string }>([
+    {
+      type: "searchList",
+      name: "path",
+      message: "Select a repository",
+      choices: repositories,
+    },
+  ]);
+
+  return path;
 };
 
 export const filenameQuestion = async () => {
