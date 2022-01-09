@@ -37,7 +37,7 @@ pnpm link --global
 github-orgs-cli --help
 
 github-orgs-cli org [organization] [options] (default)
-github-orgs-cli repo [owner/rpo] [options]
+github-orgs-cli repo [owner/repo] [options]
 github-orgs-cli limit
 
 # invite a user to an organization
