@@ -14,7 +14,7 @@ import { inviteUsersToOrganization, inviteUsersToRepository } from "./tasks.js";
 
 export const organizationInvitationCommand = () =>
   new Command("org")
-    .description("Invite users to an organization")
+    .description("invite users to an organization")
     .argument("[organization]", "github organization path")
     .option("-f, --file <filename>", "file containing invitees")
     .action(async (organization: string, { file }: { file: string }) => {
@@ -37,7 +37,7 @@ export const organizationInvitationCommand = () =>
 
 export const repositoryInvitationCommand = () =>
   new Command("repo")
-    .description("Invite users to a repository")
+    .description("invite users to a repository")
     .argument("[owner/repo]", "github repository path")
     .option("-f, --file <filename>", "file containing invitees")
     .action(async (repository: string, { file }: { file: string }) => {
