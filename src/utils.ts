@@ -3,6 +3,7 @@ import { access } from "node:fs/promises";
 import { dirname } from "node:path";
 import * as readline from "node:readline";
 import { fileURLToPath } from "node:url";
+
 import { readPackageUpSync } from "read-pkg-up";
 
 export const validateEmail = (email: string) =>
