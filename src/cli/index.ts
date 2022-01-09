@@ -1,9 +1,11 @@
 import { Command } from "commander";
 
-import { organizationInvitationCommand } from "./commands.js";
+import { organizationInvitationCommand, rateLimitCommand } from "./commands.js";
 
 const program = new Command();
 
-program.addCommand(organizationInvitationCommand(), { isDefault: true });
+program
+  .addCommand(organizationInvitationCommand(), { isDefault: true })
+  .addCommand(rateLimitCommand());
 
 export default program;

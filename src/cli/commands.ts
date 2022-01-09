@@ -39,3 +39,18 @@ export const repositoryInvitationCommand = () =>
     .description("Invite users to a repository")
     .argument("[repository]", "github repository path")
     .argument("[filename]", "file containing invitees");
+
+export const rateLimitCommand = () =>
+  new Command("limit").description("get rate limit").action(async () => {
+    const token = process.env["GITHUB_TOKEN"] ?? (await tokenQuestion());
+    const github = new Octokit({ auth: token });
+
+    const {
+      data: { rate },
+    } = await github.rest.rateLimit.get();
+
+    console.info({
+      ...rate,
+      reset: new Date(rate.reset * 1000),
+    });
+  });
