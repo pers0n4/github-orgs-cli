@@ -1,6 +1,6 @@
 {
   "name": "github-orgs-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "GitHub Oragnization CLI",
   "keywords": [
     "github",
@@ -23,8 +23,8 @@
   "license": "MIT",
   "author": "Dong-Young Kim <31337.persona@gmail.com>",
   "type": "module",
-  "exports": "./dist/index.js",
-  "main": "./src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "github-orgs-cli": "./dist/index.js"
   },

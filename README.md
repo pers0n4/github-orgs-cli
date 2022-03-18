@@ -41,14 +41,14 @@ github-orgs-cli repo [owner/repo] [options]
 github-orgs-cli limit
 
 # invite a user to an organization
-github-orgs-cli ORG
-github-orgs-cli ORG -f invitees.txt
-github-orgs-cli org ORG
-github-orgs-cli org ORG --file invitees.txt
+github-orgs-cli <ORG>
+github-orgs-cli <ORG> -f invitees.txt
+github-orgs-cli org <ORG>
+github-orgs-cli org <ORG> --file invitees.txt
 
 # invite a user to a repository
-github-orgs-cli repo OWNER/REPO
-github-orgs-cli repo OWNER/REPO -f invitees.txt
+github-orgs-cli repo <OWNER/REPO>
+github-orgs-cli repo <OWNER/REPO> -f invitees.txt
 ```
 
 ## LICENSE
