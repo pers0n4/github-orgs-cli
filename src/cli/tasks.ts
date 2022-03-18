@@ -15,9 +15,16 @@ export const inviteUsersToOrganization = async (
       const lineInterface = createLineStream(readStream);
       for await (const id of lineInterface) {
         spinner.text = `Invite ${chalk.cyan(id)}...`;
+
+        const key = validateEmail(id) ? "email" : "invitee_id";
+        const value =
+          key === "email"
+            ? id
+            : (await github.rest.users.getByUsername({ username: id })).data.id;
+
         await github.rest.orgs.createInvitation({
           org,
-          [validateEmail(id) ? "email" : "invitee_id"]: id,
+          [key]: value,
           team_ids,
         });
       }
