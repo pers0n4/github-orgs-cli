@@ -3,13 +3,12 @@
   "version": "1.1.1",
   "description": "GitHub Oragnization CLI",
   "keywords": [
+    "octokit",
     "github",
     "api",
-    "github-api",
-    "invitation",
+    "cli",
     "organization",
     "repository",
-    "cli",
     "typescript"
   ],
   "bugs": {
@@ -21,22 +20,23 @@
     "url": "https://github.com/pers0n4/github-orgs-cli.git"
   },
   "license": "MIT",
-  "author": "Dong-Young Kim <31337.persona@gmail.com>",
+  "author": {
+    "name": "Dong-Young Kim",
+    "email": "31337.persona@gmail.com",
+    "url": "https://github.com/pers0n4"
+  },
   "type": "module",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "bin": {
-    "github-orgs-cli": "./dist/index.js"
-  },
+  "bin": "dist/index.js",
   "files": [
-    "dist/",
-    "types/"
+    "dist/"
   ],
   "scripts": {
     "build": "tsc --build --clean && tsc --build --verbose",
     "check": "tsc --noEmit",
-    "start": "node ./dist/index.js",
-    "watch": "tsc --watch"
+    "format": "prettier --write .",
+    "lint": "eslint --fix --cache .",
+    "start": "node ./dist/index.js"
   },
   "dependencies": {
     "chalk": "^5.0.1",
@@ -61,14 +61,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4"
-  },
-  "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
-  },
-  "publishConfig": {
-    "executableFiles": [
-      "./dist/index.js"
-    ],
-    "main": "./dist/index.js"
   }
 }
