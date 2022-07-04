@@ -6,6 +6,8 @@ dist/
 
 .eslintcache
 
+*.log
+
 # yarn berry
 .yarn/*
 !.yarn/patches
@@ -18,3 +20,8 @@ dist/
 # Documentation here: https://yarnpkg.com/features/zero-installs
 # !.yarn/cache
 .pnp.*
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
