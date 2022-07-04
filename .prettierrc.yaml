@@ -1,16 +1,18 @@
 # https://prettier.io/docs/en/options.html
-printWidth: 80
+# printWidth: 80
 tabWidth: 2
 useTabs: false
 semi: true
 singleQuote: false
-quoteProps: as-needed
-jsxSingleQuote: false
+# quoteProps: as-needed
+# jsxSingleQuote: false
 trailingComma: all
-bracketSpacing: true
-bracketSameLine: false
-arrowParens: always
-proseWrap: preserve
-htmlWhitespaceSensitivity: css
+# bracketSpacing: true
+# bracketSameLine: false
+# arrowParens: always
+# proseWrap: preserve
+# htmlWhitespaceSensitivity: css
+# vueIndentScriptAndStyle: false
 endOfLine: lf
-embeddedLanguageFormatting: auto
+# embeddedLanguageFormatting: auto
+# singleAttributePerLine: false

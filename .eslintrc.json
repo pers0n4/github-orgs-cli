@@ -8,24 +8,15 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
+    "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:prettier/recommended"
   ],
   "plugins": ["@typescript-eslint", "import"],
   "rules": {
-    "sort-imports": [
-      "error",
-      {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": true,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-      }
-    ],
-
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -41,18 +32,23 @@
           "builtin",
           "external",
           "internal",
-          "unknown",
           "parent",
           "sibling",
           "index",
           "object",
-          "type"
+          "type",
+          "unknown"
         ],
         "newlines-between": "always",
-        "alphabetize": { "order": "asc", "caseInsensitive": false }
+        "alphabetize": { "order": "asc", "caseInsensitive": false },
+        "warnOnUnassignedImports": true
       }
     ],
 
+    "@typescript-eslint/consistent-type-exports": [
+      "error",
+      { "fixMixedExportsWithInlineTypeSpecifier": false }
+    ],
     "@typescript-eslint/consistent-type-imports": [
       "error",
       { "prefer": "type-imports" }
