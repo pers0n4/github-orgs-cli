@@ -42,9 +42,6 @@
     "chalk": "^5.0.1",
     "commander": "^9.3.0",
     "inquirer": "^9.0.0",
-    "inquirer-fuzzy-path": "^2.3.0",
-    "inquirer-search-checkbox": "^1.0.0",
-    "inquirer-search-list": "^1.2.6",
     "octokit": "^1.8.1",
     "ora": "^6.1.2",
     "read-pkg-up": "^9.1.0"
